@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Bunga Acak Arah</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(to top, #fce4ec, #f8bbd0);
+      position: relative;
+    }
+
+    .bunga {
+      position: absolute;
+      bottom: -100px;
+      font-size: 100px;
+      opacity: 0;
+      animation: naik 6s ease-out forwards;
+    }
+
+    @keyframes naik {
+      0% {
+        bottom: -100px;
+        opacity: 0;
+        transform: translateX(0) scale(0.6) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        bottom: 100%;
+        opacity: 0;
+        transform: var(--arah) scale(1.2) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const jenisBunga = ['🌸', '🌷', '🌼', '🌻', '💮'];
+
+  function buatBunga() {
+    const bunga = document.createElement('div');
+    bunga.className = 'bunga';
+    bunga.textContent = jenisBunga[Math.floor(Math.random() * jenisBunga.length)];
+    bunga.style.left = Math.random() * window.innerWidth + 'px';
+    bunga.style.fontSize = (80 + Math.random() * 40) + 'px';
+
+    // Acak arah gerak: ke kiri atau ke kanan
+    const arah = Math.random() < 0.5 ? 'translateX(-100px)' : 'translateX(100px)';
+    bunga.style.setProperty('--arah', arah);
+
+    document.body.appendChild(bunga);
+    setTimeout(() => bunga.remove(), 7000);
+  }
+
+  setInterval(() => {
+    for (let i = 0; i < 4; i++) {
+      setTimeout(buatBunga, i * 300);
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
